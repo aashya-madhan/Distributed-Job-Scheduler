@@ -13,8 +13,14 @@ export function useWebSocket(
   const connect = useCallback(() => {
     if (!token || !mountedRef.current) return;
 
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const ws = new WebSocket(`${protocol}//${window.location.host}/ws?token=${token}`);
+    // Use explicit WS URL in production, fall back to same-host proxy in dev
+    const wsBase = import.meta.env.VITE_WS_URL
+      ? import.meta.env.VITE_WS_URL
+      : (() => {
+          const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+          return `${protocol}//${window.location.host}/ws`;
+        })();
+    const ws = new WebSocket(`${wsBase}?token=${token}`);
 
     ws.onopen = () => {
       if (retryRef.current) { clearTimeout(retryRef.current); retryRef.current = null; }

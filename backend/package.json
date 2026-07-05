@@ -13,7 +13,8 @@
     "test:coverage": "jest --runInBand --forceExit --coverage",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:seed": "ts-node src/utils/seed.ts"
+    "db:seed": "ts-node src/utils/seed.ts",
+    "db:create-admin": "ts-node src/utils/createAdmin.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",

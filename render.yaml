@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: distributed-job-scheduler-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false   # set manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false   # set manually in Render dashboard
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        sync: false   # set to your Vercel URL, e.g. https://your-app.vercel.app
+      - key: WORKER_POLL_INTERVAL
+        value: "2000"
+      - key: WORKER_HEARTBEAT_INTERVAL
+        value: "10000"
+      - key: WORKER_STALE_THRESHOLD
+        value: "30000"

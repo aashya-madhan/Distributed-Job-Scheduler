@@ -16,7 +16,23 @@ import logger from './utils/logger';
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173', credentials: true }));
+// Support comma-separated list of allowed origins, e.g. "https://app.vercel.app,https://app.netlify.app"
+const rawOrigins = process.env.FRONTEND_URL || 'http://localhost:5173';
+const allowedOrigins = rawOrigins.split(',').map((o) => o.trim());
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, mobile apps, health checks)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origin ${origin} not allowed`));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan('dev'));
 
