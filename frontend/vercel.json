@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://distributed-job-scheduler-backend-58c9.onrender.com/api/$1"
+      "source": "/api/:path*",
+      "destination": "https://distributed-job-scheduler-backend-58c9.onrender.com/api/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "destination": "/index.html"
     }
   ]
