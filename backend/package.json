@@ -34,6 +34,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.0",
+    "@types/node-cron": "^3.0.11",
     "@types/supertest": "^7.2.0",
     "@types/uuid": "^9.0.7",
     "@types/ws": "^8.5.10",
@@ -48,10 +49,21 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": ["**/__tests__/**/*.test.ts"],
-    "setupFiles": ["./src/__tests__/setup.ts"],
+    "testMatch": [
+      "**/__tests__/**/*.test.ts"
+    ],
+    "setupFiles": [
+      "./src/__tests__/setup.ts"
+    ],
     "transform": {
-      "^.+\\.tsx?$": ["ts-jest", { "tsconfig": { "strict": false } }]
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "strict": false
+          }
+        }
+      ]
     }
   }
 }
